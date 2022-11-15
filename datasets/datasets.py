@@ -127,7 +127,7 @@ def dataset_factory(dataset_name,
 
     dataset = DATASETS[dataset_name]
     dataset_path = dataset[
-        "dataset_path"] if dataset_name != None else dataset_name
+        "dataset_path"] if dataset_path == None else dataset_path
     data = DATASETS[dataset_name]["data_fn"](dataset_path, dataset["labels"])
     return _make_dataloaders(data,
                              dataset["transform_fn"](),
