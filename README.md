@@ -2,7 +2,7 @@
 
 ![comb1](https://user-images.githubusercontent.com/29043871/201990619-639dc153-1dff-48c7-bd4b-518ebbc1c51e.png)
 
-A simple yet effective object detection repository.
+A minimal object detection repository.
 
 While reading papers and browsing repos to refresh my computer vision knowledge, i noticed that most object detection repos are complicating and cluttered with code - which makes it difficult to understand how object detection works end to end.
 
@@ -91,7 +91,7 @@ Training took ~30 hours on a GTX1070Ti.
 Training bigger models for longer would definitely yield better results.
 
 ![comb2](https://user-images.githubusercontent.com/29043871/201991539-072d7c45-faff-4c38-8731-5ce4330c72e1.png)
-![comb3](https://user-images.githubusercontent.com/29043871/201991754-7f89ea0c-c099-41f4-8ab1-0a25ec873aba.png)
+![comb3](https://user-images.githubusercontent.com/29043871/201994865-4c88a2a7-74eb-4f14-86eb-cd26a951dee4.png)
 
 
 ### Carla Traffic Lights
