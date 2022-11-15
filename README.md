@@ -36,21 +36,21 @@ from inference import load_model, load_image
 from datasets import reverse_transform_classes
 from utils import draw_bboxes
 
-# load the model
+# load a model
 predictor = load_model("path/to/model.pth", num_classes=19)
 
-# load the image
+# load an image
 image = load_image("path/to/img.jpg", image_size=480)
 
 # obtain results
 preds = predictor(image)
-bboxes = preds["predicted_boxes"][0]
-scores = preds["scores"][0]
-classes = reverse_transform_classes(preds["pred_classes"], "pascal_voc_2012")[0]
+bboxes = preds["predicted_boxes"]
+scores = preds["scores"]
+classes = reverse_transform_classes(preds["pred_classes"], "pascal_voc_2012")
 
 # optional - visualize predictions
 image = image[0].permute(1, 2, 0).detach().cpu().numpy()
-draw_bboxes(f"./path/to/visualized.jpg", image, bboxes, scores, classes)
+draw_bboxes(f"./path/to/visualized.jpg", image, bboxes[0], scores[0], classes[0])
 ```
 
 ### Create your own Dataset
