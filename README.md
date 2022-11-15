@@ -1,7 +1,6 @@
 # Simple Object Detection
 
-![45_valid](https://user-images.githubusercontent.com/29043871/201867189-99262208-45e8-492a-b77e-306c5b03b12e.jpg)
-![70_valid](https://user-images.githubusercontent.com/29043871/201868422-a7137139-41cf-444d-aa5a-98364f0e14c1.jpg)
+![comb1](https://user-images.githubusercontent.com/29043871/201990619-639dc153-1dff-48c7-bd4b-518ebbc1c51e.png)
 
 A simple yet effective object detection repository.
 
@@ -91,10 +90,9 @@ Training took ~30 hours on a GTX1070Ti.
 
 Training bigger models for longer would definitely yield better results.
 
-![40_valid](https://user-images.githubusercontent.com/29043871/201866833-3210adbf-8c4d-4801-9d74-e3b9399cdf07.jpg)
-![69_valid](https://user-images.githubusercontent.com/29043871/201866945-181e1611-9e89-4f38-af3a-961490c3cdd7.jpg)
-![77_valid](https://user-images.githubusercontent.com/29043871/201868890-2183e6a4-7d68-4f5c-a7c4-996e3c4b6301.jpg)
-![11_valid](https://user-images.githubusercontent.com/29043871/201869177-37929c3d-a4b8-414e-9f64-51a6f53569dc.jpg)
+![comb2](https://user-images.githubusercontent.com/29043871/201991539-072d7c45-faff-4c38-8731-5ce4330c72e1.png)
+![comb3](https://user-images.githubusercontent.com/29043871/201991754-7f89ea0c-c099-41f4-8ab1-0a25ec873aba.png)
+
 
 ### Carla Traffic Lights
 
@@ -103,21 +101,18 @@ Training took 3 hours on a GTX1070Ti.
 
 Dataset collected by myself in the CARLA simulator can be found [here](https://drive.google.com/drive/folders/1TXkPLWlNgauPhQnKEoPDZsx7Px1MD9n_?usp=sharing), annotations can be found [here](https://github.com/affinis-lab/traffic-light-detection-module/blob/master/dataset/carla_all.csv).
 
-Pretrained model can be found [here](https://drive.google.com/file/d/17mcQ-Ct6bUTS8BEpeDjaZMIFmHS2gptl/view?usp=share_link)
+Pretrained model can be found [here](https://drive.google.com/file/d/17mcQ-Ct6bUTS8BEpeDjaZMIFmHS2gptl/view?usp=share_link).
 
-![30_valid](https://user-images.githubusercontent.com/29043871/201873987-5f599152-e55f-4b61-afa3-0a9954813f6a.jpg)
-![pred (1)](https://user-images.githubusercontent.com/29043871/201874722-34fe2f55-80d7-43ee-8249-53ac5b891645.jpg)
-![1_valid](https://user-images.githubusercontent.com/29043871/201874420-cf1bf086-8cf4-4d0e-9bca-17fc68051ee2.jpg)
-![pred (2)](https://user-images.githubusercontent.com/29043871/201875505-7498bb33-e77f-410a-97ef-00d5a2cde769.jpg)
-![loooong (1)](https://user-images.githubusercontent.com/29043871/201876451-c862f5bf-6302-4937-8ca0-08b83eea0c84.jpg)
-![occlusion](https://user-images.githubusercontent.com/29043871/201880563-654409d5-4d5c-4c32-a7ba-ea4f62c4eef9.jpg)
+![comb4](https://user-images.githubusercontent.com/29043871/201992324-4323166d-e207-417d-9fe9-8265b885d0fe.png)
+![comb5](https://user-images.githubusercontent.com/29043871/201992330-e6929134-b639-4744-9a75-108da64ed033.png)
+![comb6](https://user-images.githubusercontent.com/29043871/201992333-f6d32332-b7cd-40c9-a82d-049fe1c567ca.png)
+
 
 Amazingly, the model can even detect IRL traffic lights (although with a lower confidence):
 
-![carla-irl-1 (1)](https://user-images.githubusercontent.com/29043871/201879893-18291a92-fcfe-418e-a3c1-0cfd54960e7e.jpg)
-![carla-irl-5 (1)](https://user-images.githubusercontent.com/29043871/201879903-f32ee233-d4e2-40b7-a0b4-52492e617a82.jpg)
-![carla-irl-3 (1)](https://user-images.githubusercontent.com/29043871/201879898-8eafd86d-e2bc-4ac2-8aeb-5a3242a8bd3e.jpg)
-![carla-irl-4 (1)](https://user-images.githubusercontent.com/29043871/201879902-3dc9284f-0f4e-4757-a3bf-f5b4cb6f999b.jpg)
+![comb7](https://user-images.githubusercontent.com/29043871/201992833-011f521c-1acd-44bc-b372-135e44940dbb.png)
+![comb8](https://user-images.githubusercontent.com/29043871/201992839-ba3134f2-e86f-49f0-a872-77d4aba980d5.png)
+
 
 ## To Do
 
