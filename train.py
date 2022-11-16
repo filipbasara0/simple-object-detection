@@ -163,10 +163,10 @@ def main(args):
                 epoch_path = f"{logs_path}/{epoch}"
                 os.makedirs(epoch_path)
 
-                log_images(f"{epoch_path}/train", all_images_train,
-                           all_results_train)
-                log_images(f"{epoch_path}/valid", all_images_valid,
-                           all_results_valid)
+                log_images(args.dataset_name, f"{epoch_path}/train",
+                           all_images_train, all_results_train)
+                log_images(args.dataset_name, f"{epoch_path}/valid",
+                           all_images_valid, all_results_valid)
 
                 map = map_metric.compute()
                 logger.log_info(pformat(map))

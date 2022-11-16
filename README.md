@@ -32,7 +32,7 @@ python train.py --resolution=480 --dataset="pascal_voc_2012"   --output_dir="tra
 ### Inference
 
 ```python
-from inference import load_model, load_image
+from inference.load import load_model, load_image
 from datasets import reverse_transform_classes
 from utils import draw_bboxes
 
@@ -100,7 +100,6 @@ Training bigger models for longer would definitely yield better results.
 ![comb2](https://user-images.githubusercontent.com/29043871/201991539-072d7c45-faff-4c38-8731-5ce4330c72e1.png)
 ![comb3](https://user-images.githubusercontent.com/29043871/201994865-4c88a2a7-74eb-4f14-86eb-cd26a951dee4.png)
 
-
 ### Carla Traffic Lights
 
 Model with the same specification as above was trained for 50 epochs and obtained a mAP of 60 on a small eval dataset.
@@ -114,12 +113,10 @@ Pretrained model can be found [here](https://drive.google.com/file/d/17mcQ-Ct6bU
 ![comb5](https://user-images.githubusercontent.com/29043871/201992330-e6929134-b639-4744-9a75-108da64ed033.png)
 ![comb6](https://user-images.githubusercontent.com/29043871/201992333-f6d32332-b7cd-40c9-a82d-049fe1c567ca.png)
 
-
 Amazingly, the model can even detect IRL traffic lights (although with a lower confidence):
 
 ![comb7](https://user-images.githubusercontent.com/29043871/201992833-011f521c-1acd-44bc-b372-135e44940dbb.png)
 ![comb8](https://user-images.githubusercontent.com/29043871/201992839-ba3134f2-e86f-49f0-a872-77d4aba980d5.png)
-
 
 ## To Do
 
