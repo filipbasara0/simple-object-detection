@@ -9,8 +9,8 @@ from torchvision.transforms import functional as F
 from sklearn.model_selection import train_test_split
 
 from datasets import data_aug as T
-from datasets.voc_dataset import get_pascal_transform, load_pascal_data
-from datasets.carla_dataset import get_carla_transform, load_carla_data
+from datasets.voc_dataset import PascalVOCDataset
+from datasets.carla_dataset import CarlaDataset
 
 PASCAL_DATASET_NAME = "pascal_voc_2012"
 CARLA_DATASET_NAME = "carla_traffic_lights"
@@ -19,10 +19,8 @@ DATASETS = {
     PASCAL_DATASET_NAME: {
         "dataset_path":
             "./data/voc_combined.csv",
-        "data_fn":
-            load_pascal_data,
-        "transform_fn":
-            get_pascal_transform,
+        "class_name":
+            PascalVOCDataset,
         "labels": [
             '__background__', 'aeroplane', 'bicycle', 'bird', 'boat', 'bottle',
             'bus', 'car', 'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse',
@@ -31,8 +29,7 @@ DATASETS = {
     },
     CARLA_DATASET_NAME: {
         "dataset_path": "./data/carla.csv",
-        "data_fn": load_carla_data,
-        "transform_fn": get_carla_transform,
+        "class_name": CarlaDataset,
         "labels": ["__background__", "go", "stop"]
     }
 }
@@ -128,9 +125,10 @@ def dataset_factory(dataset_name,
     dataset = DATASETS[dataset_name]
     dataset_path = dataset[
         "dataset_path"] if dataset_path == None else dataset_path
-    data = DATASETS[dataset_name]["data_fn"](dataset_path, dataset["labels"])
-    return _make_dataloaders(data,
-                             dataset["transform_fn"](),
+    dataset_obj = DATASETS[dataset_name]["class_name"]()
+    return _make_dataloaders(dataset_obj.load_data(dataset_path,
+                                                   dataset["labels"]),
+                             dataset_obj.get_transform(),
                              image_size,
                              train_batch_size=train_batch_size,
                              eval_batch_size=eval_batch_size)

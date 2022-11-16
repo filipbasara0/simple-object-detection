@@ -4,6 +4,24 @@ import cv2
 from datasets.aug_utils import (rotate_box, get_enclosing_box, letterbox_image,
                                 clip_box, rotate_im, get_corners)
 
+import torch
+
+
+def mixup(images, bboxes, alpha=1.0):
+    indices = torch.randperm(len(images))
+    shuffled_images = images[indices]
+    shuffled_bboxes = [bboxes[i] for i in indices]
+
+    lam = np.clip(np.random.beta(alpha, alpha), 0.4, 0.6)
+    lam = torch.tensor(lam)
+
+    mixedup_images = lam * images + (1 - lam) * shuffled_images
+
+    mixedup_bboxes = []
+    for bbox, s_bbox in zip(bboxes, shuffled_bboxes):
+        mixedup_bboxes.append(torch.cat([bbox, s_bbox]))
+    return mixedup_images, mixedup_bboxes
+
 
 class HorizontalFlip(object):
 

@@ -55,7 +55,21 @@ draw_bboxes(f"./path/to/visualized.jpg", image, bboxes[0], scores[0], classes[0]
 
 ### Create your own Dataset
 
-To add a new dataset, create a new file `datasets/my_dataset.py`. In `datasets/my_dataset.py`, you should specify training transforms for augmentation (can be `None` if you don't need them) and a function that loads the data in the following format:
+To add a new dataset, create a file `datasets/my_dataset.py`. In `datasets/my_dataset.py`, you should create a class that contains two methods - `get_transforms` for training augmentations (can be `None` if you don't need them) and `load_data`:
+
+```python
+class MyDataset:
+
+    def load_data(self, dataset_path, labels):
+        # load the dataset and return it in the format specified below
+        ...
+
+    def get_transforms(self):
+        # return transforms (just return None if you don't need any)
+        ...
+```
+
+`load_data` should return the dataset in the following format:
 
 ```python
 [
@@ -72,8 +86,7 @@ x1, y1 and x2,y2 represent top left and bottom right corners of your target bbox
 Finally, in `datasets/datasets.py` add a new entry to the `DATASETS` dict with thet following fields
 
 - `dataset_path` - path to your dataset metadata (`image_path` and `target`)
-- `data_fn` - function that loads and converts the data to the above format
-- `transform_fn` - returns transforms that are used for augmentation during training; set to `None` if you don't want augmentation
+- `class_name` - class name for you dataset
 - `labels` - list of labels - first element of the list should be the `__background__` class (see Pascal and Carla labels in `datasets/datasets.py`)
 
 ## Results

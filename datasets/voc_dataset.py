@@ -4,33 +4,36 @@ import pandas as pd
 import numpy as np
 from datasets import data_aug as T
 
-root_dir = "./data/"
-img_dir = os.path.join(root_dir, "VOC2012", "JPEGImages")
 
+class PascalVOCDataset:
 
-def load_pascal_data(dataset_path, labels):
-    instances = []
-    data_df = pd.read_pickle(dataset_path)
-    for _, row in data_df.iterrows():
-        img_path = row["filename"]
-        labels_ = row["labels"]
+    def __init__(self):
+        root_dir = "./data/"
+        self.img_dir = os.path.join(root_dir, "VOC2012", "JPEGImages")
 
-        image_path = f"{img_dir}/{img_path}"
+    def load_data(self, dataset_path, labels):
+        instances = []
+        data_df = pd.read_pickle(dataset_path)
+        for _, row in data_df.iterrows():
+            img_path = row["filename"]
+            labels_ = row["labels"]
 
-        labels_ = [[labels.index(l)] for l in labels_]
+            image_path = f"{self.img_dir}/{img_path}"
 
-        targets_ = np.concatenate([row["bboxes"], labels_], axis=-1).tolist()
+            labels_ = [[labels.index(l)] for l in labels_]
 
-        instances.append({"image_path": image_path, "target": targets_})
-    return instances
+            targets_ = np.concatenate([row["bboxes"], labels_],
+                                      axis=-1).tolist()
 
+            instances.append({"image_path": image_path, "target": targets_})
+        return instances
 
-def get_pascal_transform():
-    return T.Sequence([
-        T.RandomHSV(80, 80, 60),
-        T.HorizontalFlip(),
-        T.RandomScale(0.28),
-        T.RandomTranslate(0.28, diff=True),
-        T.RandomRotate(20),
-        T.RandomShear(0.25)
-    ], [0.5, 0.5, 0.5, 0.5, 0.45, 0.45])
+    def get_transform(self):
+        return T.Sequence([
+            T.RandomHSV(80, 80, 60),
+            T.HorizontalFlip(),
+            T.RandomScale(0.28),
+            T.RandomTranslate(0.28, diff=True),
+            T.RandomRotate(20),
+            T.RandomShear(0.25)
+        ], [0.5, 0.5, 0.5, 0.5, 0.45, 0.45])

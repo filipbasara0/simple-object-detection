@@ -3,63 +3,65 @@ import os
 
 from datasets import data_aug as T
 
-root_dir = "./data"
-img_dir = os.path.join(root_dir, "carla_images")
 
+class CarlaDataset():
 
-def load_carla_data(path, labels):
-    data = pd.read_csv(path, delimiter=",", header=None)
+    def __init__(self):
+        root_dir = "./data"
+        self.img_dir = os.path.join(root_dir, "carla_images")
 
-    dataset = {}
-    red = 0
-    green = 0
-    all_image_paths = os.listdir(img_dir)
-    for record in data[1:][data.columns[:7]].values:
-        tokens = record[5].split(",")
+    def load_data(self, path, labels):
+        data = pd.read_csv(path, delimiter=",", header=None)
 
-        xmin, ymin, xmax, ymax = float(tokens[1].split(":")[1]), float(tokens[2].split(":")[1]),\
-                               float(tokens[3].split(":")[1]), float(tokens[4].split(":")[1].replace("}", ""))
-        xmax += xmin
-        ymax += ymin
+        dataset = {}
+        red = 0
+        green = 0
+        all_image_paths = os.listdir(self.img_dir)
+        for record in data[1:][data.columns[:7]].values:
+            tokens = record[5].split(",")
 
-        if "stop" in record[6]:
-            obj_class = "stop"
-            red += 1
-        else:
-            obj_class = "go"
-            green += 1
+            xmin, ymin, xmax, ymax = float(tokens[1].split(":")[1]), float(tokens[2].split(":")[1]),\
+                                float(tokens[3].split(":")[1]), float(tokens[4].split(":")[1].replace("}", ""))
+            xmax += xmin
+            ymax += ymin
 
-        obj_class = labels.index(obj_class)
-        obj = (xmin, ymin, xmax, ymax, obj_class)
+            if "stop" in record[6]:
+                obj_class = "stop"
+                red += 1
+            else:
+                obj_class = "go"
+                green += 1
 
-        image_path = record[0]
-        if image_path not in all_image_paths:
-            continue
+            obj_class = labels.index(obj_class)
+            obj = (xmin, ymin, xmax, ymax, obj_class)
 
-        if image_path in dataset:
-            dataset[image_path].append(obj)
-        else:
-            dataset[image_path] = [obj]
+            image_path = record[0]
+            if image_path not in all_image_paths:
+                continue
 
-    print("Red light: ", red)
-    print("Green light: ", green)
+            if image_path in dataset:
+                dataset[image_path].append(obj)
+            else:
+                dataset[image_path] = [obj]
 
-    instances = []
-    for key in dataset.keys():
-        inst = {}
-        inst["image_path"] = f"{img_dir}/{key}"
-        inst["target"] = dataset[key]
-        instances.append(inst)
+        print("Red light: ", red)
+        print("Green light: ", green)
 
-    return instances
+        instances = []
+        for key in dataset.keys():
+            inst = {}
+            inst["image_path"] = f"{self.img_dir}/{key}"
+            inst["target"] = dataset[key]
+            instances.append(inst)
 
+        return instances
 
-def get_carla_transform():
-    return T.Sequence([
-        T.RandomHSV(80, 80, 60),
-        T.HorizontalFlip(),
-        T.RandomScale(0.2),
-        T.RandomTranslate(0.2, diff=True),
-        T.RandomRotate(10),
-        T.RandomShear(0.2)
-    ], [0.5, 0.5, 0.5, 0.5, 0.45, 0.45])
+    def get_transform(self):
+        return T.Sequence([
+            T.RandomHSV(80, 80, 60),
+            T.HorizontalFlip(),
+            T.RandomScale(0.2),
+            T.RandomTranslate(0.2, diff=True),
+            T.RandomRotate(10),
+            T.RandomShear(0.2)
+        ], [0.5, 0.5, 0.5, 0.5, 0.45, 0.45])
