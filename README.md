@@ -131,6 +131,29 @@ Amazingly, the model can even detect IRL traffic lights (although with a lower c
 ![comb7](https://user-images.githubusercontent.com/29043871/201992833-011f521c-1acd-44bc-b372-135e44940dbb.png)
 ![comb8](https://user-images.githubusercontent.com/29043871/201992839-ba3134f2-e86f-49f0-a872-77d4aba980d5.png)
 
+### Usage for Carla traffic light detection
+```python
+from inference.load import load_model, load_image
+from datasets import reverse_transform_classes
+from utils import draw_bboxes
+
+# load a model (download from link above - https://drive.google.com/file/d/17mcQ-Ct6bUTS8BEpeDjaZMIFmHS2gptl/view?usp=share_link)
+predictor = load_model("/path/to/fcos-carla-v01.pth", num_classes=2)
+
+# load an image
+image = load_image("path/to/img.jpg", image_size=480)
+
+# obtain results
+preds = predictor(image)
+bboxes = preds["predicted_boxes"]
+scores = preds["scores"]
+classes = reverse_transform_classes(preds["pred_classes"], "carla_traffic_lights")
+
+# optional - visualize predictions
+image = image[0].permute(1, 2, 0).detach().cpu().numpy()
+draw_bboxes(f"./path/to/visualized.jpg", image, bboxes[0], scores[0], classes[0])
+```
+
 ## To Do
 
 - Add support for segmentation
